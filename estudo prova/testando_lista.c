@@ -24,6 +24,7 @@ LLista lista_insere (LLista lista, int valor){
     LLista novo= (LLista)malloc(sizeof(Lista));
     novo->info= valor;
     novo->prox= lista;
+    return novo;
 }
 
 LLista lista_remove (LLista lista, int valor){
