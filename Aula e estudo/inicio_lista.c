@@ -15,10 +15,14 @@ int lst_vazia(LLista lst_atual);
 LLista lst_busca(LLista lst_atual,int num);
 LLista lst_retira(LLista lst_atual,int valor);
 void lst_libera(LLista lst_atual);
+int conta_lista(LLista lst_atual);
+
 LLista lst_max(LLista lst_atual);
 LLista lst_crescente(LLista lst_atual);
 LLista lst_min(LLista lst_atual);
 LLista lst_decres(LLista lst_atual);
+
+
 
 int main()
 {
@@ -27,6 +31,10 @@ int main()
     prim= lst_insere(prim,2);
     prim= lst_insere(prim,3);
     prim= lst_insere(prim,4);
+
+    printf("%d",conta_lista(prim));
+    printf("\n");
+    
     lst_imprime(prim);
     /*lst_retira(prim,3);
     printf("\n");
@@ -34,14 +42,23 @@ int main()
 
     printf("\n");
 
-    LLista maioral = lst_crescente(prim);
+    LLista copia_prim1 = lst_copia(prim);  
+    LLista copia_prim2 = lst_copia(prim);  
+    
+    LLista maioral = lst_crescente(copia_prim1);
     printf("Ordem crescente: \n");
     lst_imprime(maioral);
     
     printf("\n");
-    LLista minmin = lst_decres(prim);
+    
+    LLista minmin = lst_decres(copia_prim2);
     printf("Ordem decrescente: \n");
     lst_imprime(minmin);
+    
+ 
+
+    
+
     
     return 0;
 }
@@ -121,63 +138,82 @@ void lst_libera(LLista lst_atual){
     }
 }
 
-LLista lst_max(LLista lst_atual){
-    LLista maior = lst_atual;
-
-    if(!lst_vazia(lst_atual)){
-        LLista p= lst_atual;
-        while (p!=NULL)
-        {
-            if(maior->info < p->info){
-                maior=p;
-            }
-            p= p->prox;
-        }
-        return maior;
+int conta_lista(LLista lst_atual){
+    int cont=0;
+    
+    while (lst_atual!=NULL)
+    {
+        cont++;
+        lst_atual=lst_atual->prox;
     }
-    return NULL;
+        
+    
+    return cont;
+
 }
 
+
+
+
+LLista lst_max(LLista lst_atual){
+    if (lst_atual == NULL) return NULL;  // Retorna NULL se a lista for vazia
+    
+    LLista maior = lst_atual;
+    LLista p = lst_atual->prox;  // Começa a busca no segundo nó
+
+    while (p != NULL) {
+        if (maior->info < p->info) {
+            maior = p;
+        }
+        p = p->prox;
+    }
+    return maior;
+}
+
+
 LLista lst_crescente(LLista lst_atual){
-    LLista lst_ordena = lst_cria();
-    while(!lst_vazia(lst_atual))
-    {
-        LLista maior = lst_max(lst_atual);
-        lst_ordena = lst_insere(lst_ordena,maior->info);
+    if (lst_atual == NULL) 
+        return NULL;  
 
-        lst_atual = lst_retira(lst_atual,maior->info);
+    LLista lst_ordena = lst_cria();  
 
-
+    while (lst_atual != NULL) {  
+        LLista maior = lst_max(lst_atual);  
+        if (maior != NULL) {  
+            lst_ordena = lst_insere(lst_ordena, maior->info);
+            lst_atual = lst_retira(lst_atual, maior->info);  
+        }
     }
     return lst_ordena;
 }
-LLista lst_min(LLista lst_atual){
-    LLista min = lst_atual;
 
-    if (!lst_vazia(lst_atual))
-    {
-        LLista p= lst_atual;
-        while (p!= NULL)
-        {
-            if(min->info > p->info){
-                min= p;
-            }
-            p = p->prox;
+
+LLista lst_min(LLista lst_atual){
+    if (lst_atual == NULL) 
+        return NULL;  
+    
+    LLista min = lst_atual;
+    LLista p = lst_atual->prox;
+    while (p != NULL) {
+        if (min->info > p->info) {
+            min = p;
         }
-        return min;
+        p = p->prox;
     }
-    return NULL;
-  
+    return min;
 }
 
 LLista lst_decres(LLista lst_atual){
-    LLista ordena = lst_cria();
-    while(!lst_vazia(lst_atual)){
-        LLista menor= lst_min(lst_atual);
-        ordena = lst_insere(ordena, menor->info);
-        lst_atual= lst_retira(lst_atual,menor->info);
+    if (lst_atual == NULL)
+        return NULL;  
+    LLista ordena = lst_cria();  
 
+    while (lst_atual != NULL) { 
+        LLista menor = lst_min(lst_atual);  
+        if (menor != NULL) {  
+            ordena = lst_insere(ordena, menor->info);
+            lst_atual = lst_retira(lst_atual, menor->info);  
+        }
     }
     return ordena;
-
 }
