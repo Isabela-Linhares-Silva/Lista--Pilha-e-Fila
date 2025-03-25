@@ -29,43 +29,39 @@ void * lsthet_cria_elemento(int tipo){
     switch (tipo)
     {
         case RET:
-        Retangulo* ptr = (Retangulo*)malloc(sizeof(Retangulo));
+        Retangulo* ptr1 = (Retangulo*)malloc(sizeof(Retangulo));
 
         printf("Criando um RETANGULO: \n");
         printf("Digite a base: ");
-        scanf("%f%*c",&ptr->b);
+        scanf("%f%*c",&ptr1->b);
         printf("Digite a altura: ");
-        scanf("%f%*c",&ptr->h);
+        scanf("%f%*c",&ptr1->h);
+        return (void*)ptr1;
         break;
     
         case CIR:
-        Circulo* ptr = (Circulo*)malloc(sizeof(Circulo));
+        Circulo* ptr2 = (Circulo*)malloc(sizeof(Circulo));
 
         printf("Criando um CIRCULO: \n");
         printf("Digite o raio: ");
-        scanf("%f%*c",&ptr->r);
+        scanf("%f%*c",&ptr2->r);
+        return (void*)ptr2;
         break;
     
         case TRI:
-        Triangulo* ptr = (Triangulo*) malloc (sizeof(Triangulo));
+        Triangulo* ptr3 = (Triangulo*) malloc (sizeof(Triangulo));
         printf("Criando um TRIANGULO: \n");
         printf("Digite a base: ");
-        scanf("%f%*c",&ptr->b);
+        scanf("%f%*c",&ptr3->b);
         printf("Digite a altura: ");
-        scanf("%f%*c",&ptr->h);
-        break;
-
-        
+        scanf("%f%*c",&ptr3->h);
+        return (void*)ptr3;
         break;
     
     default:
         printf("\nTipo indefinido!\n");
         return NULL;
-    
     }
-    return (void*)ptr;
-   
-
 }
 
 Listahet* lsthet_retira(Listahet* l, int id);
@@ -73,5 +69,39 @@ Listahet* lsthet_retira(Listahet* l, int id);
 int lsthet_vazia(Listahet* l){
     return l == NULL;
 }
+
 Listahet* lsthet_busca(Listahet *l, int id);
-void lsthet_imprime(Listahet *l);
+
+void lsthet_imprime(Listahet *l){
+    for( ;l!=NULL;l=l->prox){
+        switch (l->tipo)
+        {
+        case RET:
+            Retangulo* ret = (Retangulo*)l->info;
+            printf("===RETANGULO===\n");
+            printf("Base: %.2f\n",ret->b);
+            printf("Altura: %.2f\n",ret->h);
+            printf("===============\n");
+            break;
+        
+        case CIR:
+            Circulo* cir = (Circulo*)l->info;
+            printf("===CIRCULO===\n");
+            printf("Raio: %.2f\n",cir->r);
+            printf("=============\n");
+            break;
+
+        case TRI:
+            Triangulo* tri= (Triangulo*)l->info;
+            printf("===TRIANGULO===\n");
+            printf("Base: %.2f\n",tri->b);
+            printf("Altura: %.2f\n",tri->h);
+            printf("===============\n");
+            break;
+        
+        default:
+            break;
+        }
+    }
+    
+}
