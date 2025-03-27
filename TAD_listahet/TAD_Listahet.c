@@ -5,7 +5,27 @@ Listahet* lsthet_cria(void){
     return NULL;
 }
 
-Listahet* lsthet_libera(Listahet* l);
+/* LISTA LIBERA ! 
+Parametros: 
+l= cabeça da lista
+
+Retorna: 
+NULL
+Libera toda a memoria da lista;
+
+*/
+Listahet* lsthet_libera(Listahet* l){
+    Listahet* p = l;
+    while (p!= NULL)
+    {
+        Listahet* temp= p->prox;
+        free (p->info);
+        free(p);
+        p=temp;
+        
+    }
+    return NULL;
+}
 
 /* LISTA INSERE!
 l = cabeça da lista
@@ -64,13 +84,55 @@ void * lsthet_cria_elemento(int tipo){
     }
 }
 
-Listahet* lsthet_retira(Listahet* l, int id);
+/* LISTA RETIRA! 
+Parametros: 
+l= cabeça da lista;
+id= indice do elemento que deseja excluir;
+
+Retorna:
+Nova cabeça da lista. NULL, caso a lista esvazie.
+
+*/
+Listahet* lsthet_retira(Listahet* l, int id){
+
+}
+
+/* LISTA VAZIA !
+
+Parametros: 
+l= cabeça da lista;
+
+Retorna: 
+inteiro sinalizando se a lista esta vazia(1) ou não(0)
+
+*/
 
 int lsthet_vazia(Listahet* l){
     return l == NULL;
 }
 
-Listahet* lsthet_busca(Listahet *l, int id);
+/* LISTA BUSCA! 
+Parametros:
+l= cabeça da lista;
+id = indice do elemento que deseja excluir;
+Retorna: 
+Ponteiro para o elemento buscado ou NULL, caso o elemneto nao seja encontrado
+*/
+
+Listahet* lsthet_busca(Listahet *l, int id){
+    Listahet* p = l;
+    while (p!=NULL)
+    {
+        if(p->id==id){
+            printf("ELEMENTO ENCONTRADO\n");
+            return p;
+        }
+        p=p->prox;
+    }
+    printf("ELEMENTO NAO ENCONTRADO!\n");
+    return NULL;
+    
+}
 
 void lsthet_imprime(Listahet *l){
     for( ;l!=NULL;l=l->prox){
