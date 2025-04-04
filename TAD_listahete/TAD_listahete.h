@@ -33,11 +33,13 @@
     }Tri;
 
     Listahet* cria_lista();
+    int vazia_lista(Listahet* cabeca);
     Listahet * insere_lista(Listahet* cabeca, int id, int tipo, void* info);
     Listahet* libera_lista(Listahet* cabeca);
     Listahet* busca_lista(Listahet* cabeca, int id);
     void* cria_elemento(int tipo);
-    void imprime_lista();
+    void imprime_lista(Listahet* cabeca);
+    Listahet * retira_lista( Listahet* cabeca, int id);
 
     
     
