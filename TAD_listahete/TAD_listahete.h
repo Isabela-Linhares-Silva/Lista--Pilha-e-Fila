@@ -1,7 +1,7 @@
 #ifndef __TAD_LISTAHETE_H__
     #define __TAD_LISTAHETE_H__
 
-    //chora buaaaaa buaa
+    
     #include<stdio.h>
     #define RET 0
     #define CIR 1
